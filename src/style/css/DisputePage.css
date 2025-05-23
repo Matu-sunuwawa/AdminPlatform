@@ -457,6 +457,16 @@
   .popup-btn.escalate:hover {
     background-color: #d97706;
   }
+
+  .popup-btn.reviewed {
+    background-color: #337ab7;
+    color: #ffffff;
+  }
+
+  .popup-btn.resolved {
+    background-color: #5cb85c;
+    color: #ffffff;
+  }
   
   .popup-btn.archive {
     background-color: #ef4444;

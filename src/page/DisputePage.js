@@ -36,7 +36,7 @@ const DisputesPage = () => {
 
   const location = useLocation();
 
-  const { disputeRecords } = useContext(AuthContext)
+  const { disputeRecords, disputeInReview, disputeReviewed, disputeResolved } = useContext(AuthContext)
 
   useEffect(() => {
     setLoading(true);
@@ -115,11 +115,19 @@ const DisputesPage = () => {
     setIsPopupOpen(true);
   };
 
-  const handlePopupAction = (action) => {
-    console.log(
-      `Action "${action}" performed for dispute ${selectedDispute.reportId}`
-    );
-    setIsPopupOpen(false);
+  const handlePopupAction = async (action, transactionId) => {
+    if (action === "Escalate") {
+      const result = await disputeInReview(transactionId);
+      console.log("Escalation result:", result);
+    }
+    else if (action == "Reviewed") {
+      const result = await disputeReviewed(transactionId);
+      console.log("Reviewed result:", result);
+    }
+    else if(action == "Return Money") {
+      const result = await disputeResolved(transactionId);
+      console.log("Reviewed result:", result);
+    }
   };
 
   const handlePhoneToggle = () => {
@@ -444,18 +452,18 @@ const DisputesPage = () => {
                         Return Money
                     </button>
                     <button
-                        onClick={() => handlePopupAction("Non-Action Report")}
-                        className="popup-btn non-action"
-                        aria-label="Non-Action Report"
+                      onClick={() => handlePopupAction("Escalate", selectedDispute.id)}
+                      className="popup-btn escalate"
+                      aria-label="Escalate Dispute"
                     >
-                        Non-Action Report
+                      Escalate
                     </button>
                     <button
-                        onClick={() => handlePopupAction("Escalate")}
-                        className="popup-btn escalate"
-                        aria-label="Escalate Dispute"
+                      onClick={() => handlePopupAction("Reviewed", selectedDispute.id)}
+                      className="popup-btn reviewed"
+                      aria-label="Reviewed Dispute"
                     >
-                        Escalate
+                      Reviewed
                     </button>
                     </div>
                 </div>

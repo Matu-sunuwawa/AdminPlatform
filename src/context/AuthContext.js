@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                'http://localhost:8000/platform_admin/admin_platform_login/',
+                'https://potion.dev.gumisofts.com/platform_admin/admin_platform_login/',
                 { phone_number, password },
                 {
                     headers: { 'Content-Type': 'application/json'},
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
         const accessToken = localStorage.getItem('access_token');
       
         try {
-          const response = await axios.get('http://localhost:8000/platform_admin/all_users/', {
+          const response = await axios.get('https://potion.dev.gumisofts.com/platform_admin/all_users/', {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
@@ -95,12 +95,13 @@ export const AuthProvider = ({ children }) => {
         const accessToken = localStorage.getItem('access_token');
       
         try {
-          const response = await axios.get('http://localhost:8000/platform_admin/transaction-records/', {
+          const response = await axios.get('https://potion.dev.gumisofts.com/platform_admin/transaction-records/', {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
             },
           });
+          console.log("transactiondata:", response.data)
           return response.data;
         } catch (e) {
           localStorage.clear();
@@ -113,12 +114,13 @@ export const AuthProvider = ({ children }) => {
         const accessToken = localStorage.getItem('access_token');
       
         try {
-          const response = await axios.get('http://localhost:8000/platform_admin/dispute-records/', {
+          const response = await axios.get('https://potion.dev.gumisofts.com/platform_admin/dispute-records/', {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
             },
           });
+          console.log("disputedata:", response.data)
           return response.data;
         } catch (e) {
           localStorage.clear();
@@ -130,7 +132,7 @@ export const AuthProvider = ({ children }) => {
       const accessToken = localStorage.getItem('access_token');
     
       try {
-        const response = await axios.get('http://127.0.0.1:8000/platform_admin/business-records/', {
+        const response = await axios.get('https://potion.dev.gumisofts.com/platform_admin/business-records/', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${accessToken}`,
@@ -144,6 +146,60 @@ export const AuthProvider = ({ children }) => {
       }
   };
 
+  const disputeInReview = async (transactionId) => {
+    const accessToken = localStorage.getItem('access_token');
+  
+    try {
+      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${transactionId}/move-to-review/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("businessdata:", response.data)
+      return response.data;
+    } catch (e) {
+      localStorage.clear();
+      console.error('Not authenticated:', e);
+    }
+};
+
+  const disputeReviewed = async (transactionId) => {
+    const accessToken = localStorage.getItem('access_token');
+
+    try {
+      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${transactionId}/mark-as-reviewed/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("businessdata:", response.data)
+      return response.data;
+    } catch (e) {
+      localStorage.clear();
+      console.error('Not authenticated:', e);
+    }
+  };
+
+  const disputeResolved = async (transactionId) => {
+    const accessToken = localStorage.getItem('access_token');
+
+    try {
+      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${transactionId}/process-refund/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("businessdata:", response.data)
+      return response.data;
+    } catch (e) {
+      localStorage.clear();
+      console.error('Not authenticated:', e);
+    }
+  };
+
     const ctx = {
         submitLogin,
         submitLogout,
@@ -151,6 +207,9 @@ export const AuthProvider = ({ children }) => {
         transactionRecord,
         disputeRecords,
         businessRecords,
+        disputeInReview,
+        disputeReviewed,
+        disputeResolved,
         auth,
         message,
         error,
