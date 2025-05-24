@@ -34,7 +34,6 @@ const CustomersPage = () => {
     const [sortConfig, setSortConfig] = useState({ key: 'user_id', direction: 'asc' });
     const [isActionPopupOpen, setIsActionPopupOpen] = useState(false);
     const [selectedCustomer, setSelectedCustomer] = useState(null);
-    const [message, setMessage] = useState('');
 
     const location = useLocation();
 
@@ -48,7 +47,6 @@ const CustomersPage = () => {
                 setCustomers(data);
             } catch (error) {
                 console.error('Error fetching customers:', error);
-                setMessage('Failed to fetch customers.');
             } finally {
                 setLoading(false);
             }
@@ -82,53 +80,6 @@ const CustomersPage = () => {
             <SideBar activePath={location.pathname} />
 
             <div className="main-content">
-                <div className="header">
-                    {!isSidebarOpen && (
-                        <button
-                            className="menu-toggle-btn"
-                            aria-label="Open Sidebar"
-                        >
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                    )}
-                    <div className="header-icons">
-                        <button
-                            className="icon notification-btn"
-                            aria-label="Notifications"
-                        >
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                            </svg>
-                            <span className="notification-badge">3</span>
-                        </button>
-                        <button
-                            className="icon"
-                            aria-label="Messages"
-                        >
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-                            </svg>
-                        </button>
-                        <button
-                            className="icon"
-                            aria-label="Profile"
-                        >
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                        </button>
-                        <button
-                            className="icon"
-                            aria-label="Add New Customer"
-                        >
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
 
                 <h1 className="page-title">All Customers</h1>
 
@@ -213,21 +164,6 @@ const CustomersPage = () => {
                                     <p className="popup-info"><strong>Total Spend:</strong> {formatAmount(selectedCustomer.total_spend)}</p>
                                     <p className="popup-info"><strong>Subscription Sum:</strong> {formatAmount(selectedCustomer.subscription_sum)}</p>
                                     <p className="popup-info"><strong>Active Subscriber:</strong> {selectedCustomer.is_active_subscriber ? 'Yes' : 'No'}</p>
-                                </div>
-                                <div className="popup-section">
-                                    <h3 className="popup-section-title">Send Message</h3>
-                                    <textarea
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                        placeholder="Type your message here..."
-                                        className="message-input"
-                                    />
-                                    <button
-                                        className="popup-btn send-message"
-                                        aria-label="Send Message"
-                                    >
-                                        Send
-                                    </button>
                                 </div>
                             </div>
                             <div className="popup-footer">

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, createContext, useRef } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -101,7 +101,6 @@ export const AuthProvider = ({ children }) => {
               Authorization: `Bearer ${accessToken}`,
             },
           });
-          console.log("transactiondata:", response.data)
           return response.data;
         } catch (e) {
           localStorage.clear();
@@ -120,7 +119,6 @@ export const AuthProvider = ({ children }) => {
               Authorization: `Bearer ${accessToken}`,
             },
           });
-          console.log("disputedata:", response.data)
           return response.data;
         } catch (e) {
           localStorage.clear();
@@ -138,7 +136,6 @@ export const AuthProvider = ({ children }) => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log("businessdata:", response.data)
         return response.data;
       } catch (e) {
         localStorage.clear();
@@ -146,17 +143,16 @@ export const AuthProvider = ({ children }) => {
       }
   };
 
-  const disputeInReview = async (transactionId) => {
+  const disputeInReview = async (disputeId) => {
     const accessToken = localStorage.getItem('access_token');
   
     try {
-      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${transactionId}/move-to-review/`, {
+      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${disputeId}/move-to-review/`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("businessdata:", response.data)
       return response.data;
     } catch (e) {
       localStorage.clear();
@@ -164,17 +160,16 @@ export const AuthProvider = ({ children }) => {
     }
 };
 
-  const disputeReviewed = async (transactionId) => {
+  const disputeReviewed = async (disputeId) => {
     const accessToken = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${transactionId}/mark-as-reviewed/`, {
+      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${disputeId}/mark-as-reviewed/`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("businessdata:", response.data)
       return response.data;
     } catch (e) {
       localStorage.clear();
@@ -182,17 +177,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const disputeResolved = async (transactionId) => {
+  const disputeResolved = async (disputeId, notes) => {
     const accessToken = localStorage.getItem('access_token');
 
     try {
-      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${transactionId}/process-refund/`, {
+      const response = await axios.patch(`https://potion.dev.gumisofts.com/platform_admin/dispute-records/${disputeId}/process-refund/`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("businessdata:", response.data)
+      console.log("disputesdata:", response.data)
       return response.data;
     } catch (e) {
       localStorage.clear();
