@@ -201,7 +201,7 @@ const TransactionPage = () => {
                       />
                     </td>
                     <td className="table-cell">{transaction.id}</td>
-                    <td className="table-cell">{-1*transaction.amount.toFixed(2)} ETB</td>
+                    <td className="table-cell">{transaction.amount.toFixed(2)} ETB</td>
                     <td className="table-cell">{transaction.from_user}</td>
                     <td className="table-cell">{transaction.to_user}</td>
                     <td className="table-cell">{transaction.remarks || "-"}</td>
