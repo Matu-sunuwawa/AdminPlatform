@@ -1,0 +1,86 @@
+.sidebar {
+    width: 60px;
+    background-color: #ffffff;
+    padding: 1rem 0.5rem;
+    border-right: 1px solid #e2e8f0;
+    position: fixed;
+    height: 100%;
+    z-index: 10;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.translate-x-0 {
+    transform: translateX(0);
+  }
+  
+  .sidebar.-translate-x-full {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .sidebar-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #4f46e5;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .toggle-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: #6b7280;
+    fill: none;
+  }
+  
+  .toggle-btn:hover svg {
+    stroke: #111827;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+  }
+  
+  .menu-item {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .menu-item:hover {
+    background-color: #f1f5f9;
+  }
+  
+  .menu-item.active {
+    background-color: #e0e7ff;
+    color: #4f46e5;
+  }
+  
+  .menu-item svg {
+    width: 24px;
+    height: 24px;
+    stroke: #6b7280;
+    fill: none;
+  }
+  
+  .menu-item.active svg {
+    stroke: #4f46e5;
+  }
+  
+  .menu-item:hover svg {
+    stroke: #111827;
+  }
